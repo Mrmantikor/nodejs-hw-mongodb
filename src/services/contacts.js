@@ -30,7 +30,7 @@ export const getAllContacts = async ({
   };
 };
 
-export const getContactById = async (contactId) => {
+export const getContactById  = async (contactId) => {
   const contact = await ContactCollection.findById(contactId);
 
   return contact;
@@ -58,5 +58,5 @@ export const updateContactById = async (contactId, payload) => {
     },
   );
 
-  return rawResult;
+  return rawResult
 };
