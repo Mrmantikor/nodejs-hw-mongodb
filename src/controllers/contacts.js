@@ -1,4 +1,10 @@
-import { getAllContacts, getContactById, createContact, deleteContactById, updateContactById } from '../services/contacts.js';
+import {
+  getAllContacts,
+  getContactById,
+  createContact,
+  deleteContactById,
+  updateContactById,
+} from '../services/contacts.js';
 import createHttpError from 'http-errors';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
@@ -17,11 +23,11 @@ export const getContactController = async (req, res) => {
   });
 };
 
-    export const getContactByIdController = async (req, res) => {
+export const getContactByIdController = async (req, res) => {
   const { contactId } = req.params;
   const contact = await getContactById(contactId);
 
-        if (!contact) {
+  if (!contact) {
     throw createHttpError(404, 'Contact not found');
   }
 
@@ -43,10 +49,10 @@ export const createContactController = async (req, res) => {
 };
 
 export const deleteContactController = async (req, res, next) => {
-    const { contactId } = req.params;
-    const contact = await deleteContactById(contactId);
+  const { contactId } = req.params;
+  const contact = await deleteContactById(contactId);
 
-    if (!contact) {
+  if (!contact) {
     next(createHttpError(404, 'Contact not found'));
     return;
   }
@@ -55,12 +61,12 @@ export const deleteContactController = async (req, res, next) => {
 };
 
 export const patchContactController = async (req, res, next) => {
-    const { contactId } = req.params;
-    const result = await updateContactById(contactId, req.body, {
-        upsert: true,
-    });
+  const { contactId } = req.params;
+  const result = await updateContactById(contactId, req.body, {
+    upsert: true,
+  });
 
-    if (!result) {
+  if (!result) {
     next(createHttpError(404, 'Contact not found'));
     return;
   }
@@ -68,6 +74,6 @@ export const patchContactController = async (req, res, next) => {
   res.json({
     status: 200,
     message: `Successfully patched a contact!`,
-      data: result,
+    data: result,
   });
 };
